@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playwright Issue Checkboxes</title>
+
+    <style>
+      .visually-hidden {
+        /* Do not obscure the DOM layout. */
+        position: absolute;
+        padding: 0;
+        border: 0;
+        margin: 0;
+
+        /* Place text in a screen-readable (non-zero-sized) block. Then clip the block so that it isn't visible (to the eye). */
+        width: 1px;
+        height: 1px;
+        clip-path: inset(50%);
+
+        /* Help screen readers see full sentences (instead of multi-lined, separated letters). */
+        white-space: nowrap;
+
+        /* Disable scrolling */
+        overflow: hidden;
+      }
+
+      input[type="checkbox"].visually-hidden + label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+
+        &::before {
+          content: "";
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          box-sizing: border-box;
+          width: var(--checkbox-size);
+          height: var(--checkbox-size);
+          padding: 2px;
+          border: 1px solid black;
+          border-radius: 4px;
+          background-color: white;
+        }
+
+        &:is(input:checked + label)::before {
+          content: "\00D7"/ "";
+        }
+
+        &:is(input:focus-visible + label)::before {
+          border-color: dodgerblue;
+          outline: 1px solid dodgerblue;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>Some Text</div>
+    <input id="please-find-me" class="visually-hidden" type="checkbox" />
+    <label for="please-find-me" style="--checkbox-size: 16px">Check Me</label>
+    <div>Some More Text</div>
+  </body>
+</html>
